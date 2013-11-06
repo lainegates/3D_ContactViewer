@@ -1,0 +1,3 @@
+PROJECT(3D_ContactViewer)
+
+ADD_SUBDIRECTORY(src)
