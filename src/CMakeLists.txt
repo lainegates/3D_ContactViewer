@@ -1,1 +1,14 @@
-ADD_EXECUTABLE(3D_ContactViewer main.c)
+INCLUDE_DIRECTORIES($ENV{OSG_ROOT}/include)
+
+LINK_DIRECTORIES($ENV{OSG_ROOT}/lib)
+
+ADD_EXECUTABLE(3D_ContactViewer main.cpp )
+
+TARGET_LINK_LIBRARIES( 3D_ContactViewer osgViewerd.lib osgd.lib osgDBd.lib)
+
+		
+
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+
+
