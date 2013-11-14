@@ -84,14 +84,55 @@ bool AnimationManager::_generateKeyFrames4Translate(osgAnimation::Vec3LinearChan
     kfs->clear();
     osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array;
     vertices->clear();
-    vertices->resize(4);
-    (*vertices)[0] = osg::Vec3(10,0,0);
-    (*vertices)[1] = osg::Vec3(5,5,0);
-    (*vertices)[2] = osg::Vec3(0,5,5);
-    (*vertices)[3] = osg::Vec3(0,5,10);
+    vertices->resize(8);
+    (*vertices)[0] = osg::Vec3( 1, 1, 1);
+    (*vertices)[1] = osg::Vec3( 1,-1, 1);
+    (*vertices)[2] = osg::Vec3(-1,-1, 1);
+    (*vertices)[3] = osg::Vec3(-1, 1, 1);
+    (*vertices)[4] = osg::Vec3(-1, 1,-1);
+    (*vertices)[5] = osg::Vec3( 1, 1,-1);
+    (*vertices)[6] = osg::Vec3( 1,-1,-1);
+    (*vertices)[7] = osg::Vec3(-1,-1,-1);
 
-    for(int i=0 ; i<4 ; i++)
-        kfs->push_back( osgAnimation::Vec3Keyframe(i , (*vertices)[i]) );
+
+    osg::ref_ptr<osg::Vec3Array> pathVertices = new osg::Vec3Array;
+    pathVertices->resize(20);
+    // front 
+    (*pathVertices)[0] = (*vertices)[0];
+    (*pathVertices)[1] = (*vertices)[1];
+    (*pathVertices)[2] = (*vertices)[6];
+    (*pathVertices)[3] = (*vertices)[5];
+
+    // right
+    (*pathVertices)[4] = (*vertices)[4];
+    (*pathVertices)[5] = (*vertices)[3];
+    (*pathVertices)[6] = (*vertices)[0];
+
+    // top
+    (*pathVertices)[7] = (*vertices)[1];
+    (*pathVertices)[8] = (*vertices)[2];
+    (*pathVertices)[9] = (*vertices)[3];
+
+    // left
+    (*pathVertices)[10] = (*vertices)[4];
+    (*pathVertices)[11] = (*vertices)[7];
+    (*pathVertices)[12] = (*vertices)[2];
+
+    // bottom
+    (*pathVertices)[13] = (*vertices)[1];
+    (*pathVertices)[14] = (*vertices)[6];
+    (*pathVertices)[15] = (*vertices)[7];
+
+    // back
+    (*pathVertices)[16] = (*vertices)[4];
+    (*pathVertices)[17] = (*vertices)[5];
+    (*pathVertices)[18] = (*vertices)[6];
+
+    // back to origin
+    (*pathVertices)[19] = (*vertices)[1];
+
+    for(int i=0 ; i<pathVertices->size() ; i++)
+        kfs->push_back( osgAnimation::Vec3Keyframe(i , (*pathVertices)[i]) );
 
     return true;
 }
